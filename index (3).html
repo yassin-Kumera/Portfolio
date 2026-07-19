@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ndey Yassin Sosseh | Inclusive learning design & accessibility</title>
+<meta name="description" content="Inclusive-education specialist designing accessible learning experiences. Creator of Sunu Baat, a Wolof & English communication app for non-verbal children. Based in Dakar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b1720; --forest:#7d2b42; --forest-deep:#5d1e30;
+    --paper:#fbeef1; --paper-2:#f6e2e7; --sage:#f9e8ec; --sage-line:#ebccd4;
+    --voice:#1f8a7d; --voice-deep:#166b60;
+    --rose:#c98b96;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Instrument Sans',system-ui,sans-serif;
+    --mono:'Space Mono',ui-monospace,monospace;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:.6rem 1rem;z-index:100;border-radius:0 0 8px 0}
+  .skip:focus{left:0}
+  :focus-visible{outline:3px solid var(--voice);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--sage-line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;text-decoration:none}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--voice);flex:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--voice) 22%,transparent)}
+  nav a{font-size:.9rem;text-decoration:none;margin-left:22px;color:color-mix(in srgb,var(--ink) 72%,transparent);transition:color .2s}
+  nav a:hover{color:var(--voice-deep)}
+  @media(max-width:620px){nav{display:none}}
+
+  /* hero */
+  .hero{padding:64px 0 32px}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--forest-deep);margin-bottom:22px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;letter-spacing:-.025em;max-width:16ch}
+  h1 em{font-style:normal;color:var(--forest);position:relative;white-space:nowrap}
+  .lede{font-size:clamp(1.05rem,2.2vw,1.28rem);max-width:52ch;margin-top:24px;color:color-mix(in srgb,var(--ink) 82%,transparent)}
+
+  /* communication board */
+  .board{margin:44px 0 8px;background:linear-gradient(180deg,#fff,var(--paper-2));border:1px solid var(--sage-line);border-radius:22px;padding:20px;box-shadow:0 24px 60px -34px rgba(21,49,29,.5)}
+  .strip{display:flex;align-items:center;gap:12px;background:var(--paper);border:1.5px dashed var(--sage-line);border-radius:14px;padding:14px 16px;min-height:64px}
+  .strip .placeholder{color:color-mix(in srgb,var(--ink) 45%,transparent);font-size:.98rem}
+  .sentence{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,2.6vw,1.5rem);letter-spacing:-.01em;color:var(--ink);flex:1}
+  .strip-actions{display:flex;gap:8px;flex:none}
+  .icon-btn{border:1.5px solid var(--sage-line);background:#fff;border-radius:10px;width:42px;height:42px;font-size:1rem;cursor:pointer;color:var(--ink);display:grid;place-items:center;transition:transform .12s,border-color .2s}
+  .icon-btn:hover{border-color:var(--forest);transform:translateY(-1px)}
+  .speak{background:var(--forest);color:#fff;border-color:var(--forest);font-family:var(--body);font-weight:600;width:auto;padding:0 18px;gap:8px}
+  .speak:hover{background:var(--forest-deep);border-color:var(--forest-deep)}
+  .speak[aria-pressed="true"]{background:var(--voice);border-color:var(--voice)}
+
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}
+  @media(max-width:720px){.tiles{grid-template-columns:repeat(3,1fr)}}
+  .tile{background:var(--sage);border:1.5px solid var(--sage-line);border-radius:13px;padding:14px 8px 11px;cursor:pointer;text-align:center;font-family:var(--body);font-weight:500;font-size:.92rem;color:var(--ink);transition:transform .12s,background .2s,border-color .2s;display:flex;flex-direction:column;align-items:center;gap:7px}
+  .tile:hover{background:#fff;border-color:var(--forest);transform:translateY(-2px)}
+  .tile:active{transform:translateY(0) scale(.97)}
+  .tile svg{width:22px;height:22px;color:var(--forest)}
+  .tile.accent svg{color:var(--voice)}
+
+  .phrases{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+  .phrases .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 55%,transparent);margin-right:4px}
+  .chip{border:1.5px solid var(--sage-line);background:transparent;border-radius:999px;padding:7px 14px;font-size:.85rem;cursor:pointer;font-family:var(--body);color:var(--ink);transition:all .2s}
+  .chip:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .hint{font-size:.8rem;color:color-mix(in srgb,var(--ink) 55%,transparent);margin-top:14px;font-family:var(--mono);letter-spacing:.02em}
+
+  /* sections */
+  section{padding:72px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
+  .sec-num{font-family:var(--mono);font-size:.8rem;color:var(--voice-deep);padding-top:6px}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2.6rem);letter-spacing:-.02em;line-height:1.05}
+  .about-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:48px}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:28px}}
+  .about p{font-size:1.08rem;margin-bottom:18px;max-width:56ch}
+  .about p .hl{background:linear-gradient(180deg,transparent 62%,color-mix(in srgb,var(--voice) 34%,transparent) 0);padding:0 2px}
+  .facts{border-left:2px solid var(--sage-line);padding-left:24px}
+  .fact{margin-bottom:22px}
+  .fact dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--forest-deep);margin-bottom:5px}
+  .fact dd{font-size:1rem;font-weight:500}
+
+  /* work */
+  .work{background:var(--ink);color:var(--paper);border-radius:28px;padding:clamp(28px,5vw,56px)}
+  .work h2{color:var(--paper)}
+  .work .sec-num{color:var(--voice)}
+  .cards{display:grid;gap:18px;margin-top:8px}
+  .card{background:color-mix(in srgb,#fff 6%,transparent);border:1px solid color-mix(in srgb,#fff 12%,transparent);border-radius:18px;padding:26px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;transition:background .2s,transform .2s;text-decoration:none;color:inherit}
+  a.card:hover{background:color-mix(in srgb,#fff 11%,transparent);transform:translateY(-2px)}
+  @media(max-width:640px){.card{grid-template-columns:1fr;gap:14px}}
+  .card .badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;white-space:nowrap;align-self:start}
+  .badge.live{background:var(--voice);color:var(--ink)}
+  .badge.concept{background:transparent;border:1px solid color-mix(in srgb,var(--paper) 40%,transparent);color:color-mix(in srgb,var(--paper) 75%,transparent)}
+  .badge.writing{background:color-mix(in srgb,var(--forest) 55%,#fff);color:var(--ink)}
+  .card h3{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:-.01em;margin-bottom:6px}
+  .card p{font-size:.96rem;color:color-mix(in srgb,var(--paper) 78%,transparent);max-width:60ch}
+  .card .go{font-size:1.4rem;color:var(--voice);flex:none}
+  .filmlist{list-style:none;margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .filmlist a{display:inline-block;text-decoration:none;font-size:.87rem;padding:7px 13px;border-radius:999px;border:1px solid color-mix(in srgb,var(--paper) 30%,transparent);color:color-mix(in srgb,var(--paper) 90%,transparent);transition:background .2s,border-color .2s}
+  .filmlist a:hover{background:var(--voice);border-color:var(--voice);color:var(--ink)}
+  @media(max-width:640px){.card .go{display:none}}
+
+  /* capabilities */
+  .caps{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--sage-line);border:1px solid var(--sage-line);border-radius:18px;overflow:hidden}
+  @media(max-width:640px){.caps{grid-template-columns:1fr}}
+  .cap{background:var(--paper);padding:28px}
+  .cap h3{font-family:var(--display);font-weight:700;font-size:1.15rem;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .cap h3 .d{width:8px;height:8px;border-radius:50%;background:var(--voice)}
+  .cap p{font-size:.95rem;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+  .cap ul{list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:7px}
+  .cap li{font-family:var(--mono);font-size:.72rem;background:var(--sage);border:1px solid var(--sage-line);padding:4px 9px;border-radius:6px}
+
+  /* contact */
+  .contact{text-align:center;padding:88px 0}
+  .contact h2{max-width:18ch;margin:0 auto 10px}
+  .contact p{max-width:46ch;margin:0 auto 30px;color:color-mix(in srgb,var(--ink) 78%,transparent);font-size:1.08rem}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{text-decoration:none;font-weight:600;padding:14px 26px;border-radius:12px;font-size:1rem;transition:transform .12s,background .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:var(--forest);color:#fff}
+  .btn.primary:hover{background:var(--forest-deep)}
+  .btn.ghost{border:1.5px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+
+  footer{border-top:1px solid var(--sage-line);padding:30px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem;color:color-mix(in srgb,var(--ink) 60%,transparent)}
+  footer .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important;transition:none!important}.tile:hover,.card:hover,.btn:hover{transform:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top"><span class="dot" aria-hidden="true"></span>Ndey&nbsp;Yassin&nbsp;Sosseh</a>
+    <nav aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#capabilities">What I do</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="eyebrow">Inclusive learning design · Accessibility · Dakar</p>
+    <h1 id="h1">I design learning that gives every child a <em>voice</em>.</h1>
+    <p class="lede">I'm an inclusive-education specialist moving into learning design and accessibility, grounded in seven years of building for children who learn differently, and in the app I made so non-verbal children could be heard.</p>
+
+    <!-- interactive communication board (the signature) -->
+    <div class="board" role="group" aria-label="Communication board: tap words to build a sentence, then press Speak to hear it">
+      <div class="strip">
+        <p class="sentence" id="sentence"><span class="placeholder">Tap the tiles to build a sentence…</span></p>
+        <div class="strip-actions">
+          <button class="icon-btn" id="back" type="button" aria-label="Remove last word">⌫</button>
+          <button class="icon-btn" id="clear" type="button" aria-label="Clear sentence">✕</button>
+          <button class="speak icon-btn" id="speak" type="button" aria-pressed="false"><span aria-hidden="true">▶</span> Speak</button>
+        </div>
+      </div>
+      <div class="tiles" id="tiles" role="list"></div>
+      <div class="phrases" aria-label="Suggested sentences">
+        <span class="lbl">Try:</span>
+      </div>
+      <p class="sr-sentence" aria-live="polite" style="position:absolute;left:-9999px" id="live"></p>
+      <p class="hint" id="hint">Built like Sunu Baat, the AAC app I made. This one speaks English; the real one speaks Wolof.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 id="about-h">The short version</h2></div>
+    <div class="about-grid">
+      <div class="about">
+        <p>I hold an MA in Education specialising in special needs, and I spent six years founding and running an inclusive early-years centre in The Gambia, designing individual learning for children with autism and other additional needs, and <span class="hl">training the staff around them</span> to do the same.</p>
+        <p>That frontline work led me to build <span class="hl">Sunu Baat</span> ("Our Voice"), a free communication app for non-verbal children, in Wolof and English, because almost no learning or communication tools reflect how children here actually speak and live.</p>
+        <p>Now I'm turning that same instinct toward learning design: making digital learning that is clear, accessible, and built for the people who are usually designed around, not for.</p>
+      </div>
+      <dl class="facts" aria-label="At a glance">
+        <div class="fact"><dt>Based in</dt><dd>Dakar, Senegal</dd></div>
+        <div class="fact"><dt>Languages</dt><dd>English (fluent) · Wolof (native) · French (developing)</dd></div>
+        <div class="fact"><dt>Focus</dt><dd>Learning design · Accessibility · Inclusive EdTech</dd></div>
+        <div class="fact"><dt>Building</dt><dd>Skills in instructional design & WCAG, one project at a time</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="work reveal">
+      <div class="sec-head"><span class="sec-num">02</span><h2 id="work-h">Selected work</h2></div>
+      <div class="cards">
+        <a class="card" href="https://sunubaat.netlify.app" target="_blank" rel="noopener">
+          <span class="badge live">Live product</span>
+          <div>
+            <h3>Sunu Baat: "Our Voice"</h3>
+            <p>A free AAC communication app for non-verbal children in Wolof and English. I ran the whole thing myself: needs analysis, design, build, and classroom testing, using AI and no-code tools. Includes a culturally-grounded symbol set and caregiver voice recording so a child can speak in a familiar voice.</p>
+          </div>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+        <div class="card">
+          <span class="badge concept">Concept · in development</span>
+          <div>
+            <h3>Understanding Autism in the Mainstream Classroom</h3>
+            <p>A short, self-paced module for mainstream teachers, covering how autism can show up in class and small adjustments that change a child's whole day. Designed mobile-first and screen-reader friendly. A sample of how I turn lived SEN knowledge into structured, accessible learning.</p>
+          </div>
+          <span class="go" aria-hidden="true">→</span>
+        </div>
+        <div class="card">
+          <span class="badge live">Live work</span>
+          <div>
+            <h3>Animated research stories</h3>
+            <p>I turned findings from my MA research, interviews with mothers of autistic children in The Gambia, into short animated films, so lived experience could reach the people who need to hear it. Captioned, and made to travel: they've reached thousands of viewers and started real conversations among parents and educators.</p>
+            <ul class="filmlist">
+              <li><a href="https://vm.tiktok.com/ZN81f8tC1/" target="_blank" rel="noopener">A Mother's Struggle <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://vm.tiktok.com/ZN81fBGUB/" target="_blank" rel="noopener">Parenting an Autistic Child <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://vm.tiktok.com/ZN81yoG7Q/" target="_blank" rel="noopener">A Mother's Fight <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://vm.tiktok.com/ZN81feKUQ/" target="_blank" rel="noopener">Breaking the Stigma <span aria-hidden="true">↗</span></a></li>
+              <li><a href="https://vm.tiktok.com/ZN81fjm3b/" target="_blank" rel="noopener">A Mother's Plea <span aria-hidden="true">↗</span></a></li>
+            </ul>
+          </div>
+          <span class="go" aria-hidden="true"></span>
+        </div>
+        <div class="card">
+          <span class="badge writing">Research & writing</span>
+          <div>
+            <h3>Barriers to educational access for autistic children in rural Gambia</h3>
+            <p>My MA research into why autistic children are shut out of school, the same gap my work exists to close. Alongside a published policy document on inclusive education.</p>
+          </div>
+          <span class="go" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" aria-labelledby="cap-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 id="cap-h">What I bring to a learning team</h2></div>
+    <div class="caps reveal">
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Learning design</h3>
+        <p>Turning messy, real subject knowledge into clear, structured learning that people actually finish. Grounded in how children learn, not just how content is organised.</p>
+        <ul><li>Curriculum design</li><li>Instructional design</li><li>Storyboarding</li><li>Differentiation</li></ul>
+      </div>
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Accessibility</h3>
+        <p>Designing for the people usually left out, because I've spent my career there. Learning that works with a screen reader, a keyboard, and a range of minds.</p>
+        <ul><li>Accessible content</li><li>AAC</li><li>WCAG (learning)</li><li>Inclusive UX</li></ul>
+      </div>
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Building things</h3>
+        <p>I don't just spec learning, I ship it. Sunu Baat went from a note on my phone to a working app in real classrooms.</p>
+        <ul><li>No-code / AI tools</li><li>Prototyping</li><li>Field testing</li><li>Iteration</li></ul>
+      </div>
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Context & language</h3>
+        <p>A West-African, bilingual lens most learning teams don't have, useful anywhere designing for real linguistic and cultural diversity.</p>
+        <ul><li>Wolof / English</li><li>Low-resource settings</li><li>Caregiver engagement</li><li>Multicultural teams</li></ul>
+      </div>
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Coaching &amp; guidance</h3>
+        <p>People come to me when they're lost in a system that wasn't built for their child. I take the time to explain the process, step by step, until they feel able to act.</p>
+        <ul><li>1:1 coaching</li><li>Parent guidance</li><li>Staff training</li><li>Facilitation</li></ul>
+      </div>
+      <div class="cap">
+        <h3><span class="d" aria-hidden="true"></span>Research &amp; storytelling</h3>
+        <p>Turning research and lived experience into things people actually watch, read and remember, from policy writing to animated film.</p>
+        <ul><li>Qualitative research</li><li>Content design</li><li>Animation</li><li>Policy writing</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center"><span class="sec-num">04</span></div>
+    <h2 id="contact-h">Designing learning for a team that means it? Let's talk.</h2>
+    <p>Open to learning-design, accessibility, and inclusive-EdTech roles in Dakar, across West Africa, or remote.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:yassin@brightbeginningsgambia.com">Email me</a>
+      <a class="btn ghost" href="https://sunubaat.netlify.app" target="_blank" rel="noopener">See Sunu Baat ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap bar" style="height:auto">
+    <span>© <span id="yr"></span> Ndey Yassin Sosseh</span>
+    <span class="mono">Built accessible: keyboard, screen-reader & reduced-motion ready</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // icons (small line glyphs, on-theme for a communication board)
+  var I={
+    build:'<path d="M4 20V10l8-6 8 6v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+    learn:'<path d="M3 8l9-4 9 4-9 4-9-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 10v5c0 1 2 2 5 2s5-1 5-2v-5" fill="none" stroke="currentColor" stroke-width="2"/>',
+    child:'<circle cx="12" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 21c0-4 3-7 6-7s6 3 6 7" fill="none" stroke="currentColor" stroke-width="2"/>',
+    voice:'<circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M6.5 8.5a6 6 0 000 7M4 6a9 9 0 000 12M17.5 8.5a6 6 0 010 7M20 6a9 9 0 010 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    access:'<circle cx="12" cy="4" r="1.8" fill="currentColor"/><path d="M4 8h16M12 8v6m0 0l-3 6m3-6l3 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    heart:'<path d="M12 20S4 14 4 9a4 4 0 018-1 4 4 0 018 1c0 5-8 11-8 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+    globe:'<circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14 0 17M12 3.5c-2.5 2.5-2.5 14 0 17" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+    plus:'<path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    star:'<path d="M12 3l2.5 6 6.5.5-5 4.2 1.6 6.3L12 17l-5.6 3 1.6-6.3-5-4.2 6.5-.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    hand:'<path d="M8 11V5.5a1.5 1.5 0 013 0V11m0 0V4.5a1.5 1.5 0 013 0V11m0 0V6a1.5 1.5 0 013 0v7a6 6 0 01-6 6h-1a6 6 0 01-5-2.7L6 14a1.6 1.6 0 012.6-1.8L11 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>'
+  };
+  // tiles: {label, say, icon, accent}
+  var tiles=[
+    {l:'I design',s:'I design',i:'build'},
+    {l:'I build',s:'I build',i:'hand'},
+    {l:'learning',s:'learning',i:'learn'},
+    {l:'that includes',s:'that includes',i:'plus'},
+    {l:'every child',s:'every child',i:'child'},
+    {l:'a voice',s:'a voice',i:'voice',a:true},
+    {l:'accessible',s:'accessible',i:'access',a:true},
+    {l:'inclusive',s:'inclusive',i:'heart'},
+    {l:'in Wolof',s:'in Wolof',i:'globe'},
+    {l:'& English',s:'and English',i:'globe'},
+    {l:'for everyone',s:'for everyone',i:'star'},
+    {l:'that works',s:'that works',i:'star'}
+  ];
+  var phrases=[
+    {t:'Our Voice',w:['I build','learning','every child','a voice']},
+    {t:'My work',w:['I design','learning','accessible','inclusive']},
+    {t:'For everyone',w:['I design','learning','for everyone','that works']}
+  ];
+
+  var strip=document.getElementById('sentence'),
+      live=document.getElementById('live'),
+      tilesEl=document.getElementById('tiles'),
+      speakBtn=document.getElementById('speak');
+  var words=[];
+
+  function svg(k){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+I[k]+'</svg>';}
+  function render(){
+    if(!words.length){strip.innerHTML='<span class="placeholder">Tap the tiles to build a sentence…</span>';live.textContent='';return;}
+    var txt=words.join(' ');
+    strip.textContent=txt.charAt(0).toUpperCase()+txt.slice(1);
+    live.textContent='Sentence: '+txt;
+  }
+  function add(w){words.push(w);if(words.length>9)words.shift();render();}
+
+  tiles.forEach(function(t){
+    var b=document.createElement('button');
+    b.type='button';b.className='tile'+(t.a?' accent':'');b.setAttribute('role','listitem');
+    b.innerHTML=svg(t.i)+'<span>'+t.l+'</span>';
+    b.setAttribute('aria-label','Add word: '+t.s);
+    b.addEventListener('click',function(){add(t.s);});
+    tilesEl.appendChild(b);
+  });
+
+  var phrasesWrap=document.querySelector('.phrases');
+  phrases.forEach(function(p){
+    var c=document.createElement('button');
+    c.type='button';c.className='chip';c.textContent=p.t;
+    c.addEventListener('click',function(){words=p.w.slice();render();speak();});
+    phrasesWrap.appendChild(c);
+  });
+
+  document.getElementById('back').addEventListener('click',function(){words.pop();render();});
+  document.getElementById('clear').addEventListener('click',function(){words=[];render();});
+
+  function speak(){
+    if(!words.length)return;
+    if(!('speechSynthesis' in window)){
+      document.getElementById('hint').textContent='Your browser can\u2019t play audio here, but you built: \u201c'+words.join(' ')+'\u201d';
+      return;
+    }
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(words.join(' '));
+    u.rate=.96;u.pitch=1;u.lang='en-GB';
+    var vs=window.speechSynthesis.getVoices();
+    var pick=vs.find(function(v){return /en-GB|English/.test(v.lang+v.name)&&/female|Google|Samantha|Karen/i.test(v.name);});
+    if(pick)u.voice=pick;
+    speakBtn.setAttribute('aria-pressed','true');
+    u.onend=function(){speakBtn.setAttribute('aria-pressed','false');};
+    u.onerror=function(){speakBtn.setAttribute('aria-pressed','false');};
+    window.speechSynthesis.speak(u);
+  }
+  speakBtn.addEventListener('click',speak);
+  if('speechSynthesis' in window){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};}
+
+  // reveal on scroll
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
